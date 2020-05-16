@@ -1,27 +1,52 @@
-documentclass[10pt,a4paper,twoside]{book}
+\documentclass[10pt,a4paper,twoside]{book}
+
+\usepackage{makeidx}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{eurosym}
-\usepackage{chemist}
 \usepackage{enumitem}
+\usepackage{xspace}
+\usepackage{moredefs}\usepackage[mla]{lips}
 % à passer en dernier
-\usepackage[french]{babel}
+\usepackage[french]{babel,varioref}
 \usepackage{hyperref}
 
 \author{Me Bernard \nom{Larmorlette}}
 \title{Droit de l'Urbanisme et de l'Aménagement}
 \date{Février 2020}
 
-\newcommand*{\siecle}[1]{\textsc{#1}\ieme{}~siècle}
+\hypersetup{%
+%	pdfinfo={%
+%		Title={Droit de l'Urbanisme et de l'Aménagement}%
+%		, Subject={}%Marché \@ReferenceMarche}%
+%		, Author={Samuel Déom}%
+%		%, Keywords={}%\@ReferenceMarche}%
+%	}%
+	, colorlinks = true% colore, plutot qu'encadre, les liens hypertexte
+	, linkcolor = black% colore les liens internes en noir
+	, urlcolor = black% colore les liens externes en noir
+	, breaklinks = true% autorise les liens à être étendus sur plusieurs lignes
+}
+
+\newcommand*{\articleCodifie}[2]{article~#1.\,#2}
+\newcommand*{\articlesCodifies}[2]{articles~#1.\,#2}
+\newcommand*{\articlesCodifiesS}[2]{articles~#1.\,#2 et suivants}
+\newcommand*{\articleCU}[2]{\articlesCodifies{#1}{#2} du \CU\index{#1#2@#1.\,#2}}
+\newcommand*{\montant}[1]{\nombre{#1}~\euro}
 \newcommand*{\nom}[1]{\textsc{#1}}
 \newcommand*{\pourcent}[1]{\nombre{#1}~\%}
-\newcommand*{\montant}[1]{\nombre{#1}~\euro}
-\newcommand*{\metreCarre}{m\up{2}}
-\newcommand*{\prixSurface}[1]{\montant{#1}/m\up{2}} 
-\newcommand*{\dioxydeDeCarbone}{\chemform{CO_2}}
+\newcommand*{\prixSurface}[1]{\montant{#1}/m\up{2}}
+\newcommand*{\siecle}[1]{\textsc{#1}\ieme{}~siècle}
 
-
+\newcommand*{\cad}{c'est-à-dire\xspace}
+\newcommand*{\commune}{collectivité locale\xspace}
+\newcommand*{\CM}{Conseil Municipal\xspace}
+\newcommand*{\CU}{Code de l'urbanisme\xspace}
+\newcommand*{\etc}{\emph{etc}.\xspace}
+\newcommand*{\metreCarre}{m\up{2}\xspace}
+\newcommand*{\PUP}{projet ubain partenarial\xspace}
+\newcommand*{\sdp}{surface de plancher\xspace}
 
 \begin{document}
 
