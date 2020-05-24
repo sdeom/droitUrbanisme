@@ -29,29 +29,73 @@
 	, breaklinks = true% autorise les liens à être étendus sur plusieurs lignes
 }
 
+% Ecrire du texte juridique
+\makeatletter
+\newcommand*{\assPlen}{\@ifstar{\mbox{ass. plén.}\xspace}{assemblée plénière\xspace}}
+\newcommand*{\civUn}{\@ifstar{civ. 1\iere{}\xspace}{première chambre civile\xspace}}
+\newcommand*{\civDeux}{\@ifstar{civ. 2\ieme{}\xspace}{deuxième chambre civile\xspace}}
+\newcommand*{\civTrois}{\@ifstar{civ. 3\ieme{}\xspace}{troisième chambre civile\xspace}}
+\newcommand*{\CourDeCas}{\@ifstar{Cass.\xspace}{Cour de Cassation\xspace}}
+\newcommand*{\CA}{\@ifstar{CA\xspace}{Cour d'Appel\xspace}}
+\newcommand*{\CE}{\@ifstar{CE\xspace}{Conseil d'État\xspace}}
+\makeatother
+
+\newcommand*{\jurisCourDeCas}[3][]{\CourDeCas* #2, \printdate{#3}\ifthenelse{\equal{#1}{}}{}{, \no#1}}% Numéro de chambre, date et en option no de pourvoi
+\newcommand*{\jurisCA}[2]{\CA* #1, \printdate{#2}}%Ville, date
+
+\newcommand*{\refArticle}[2]{\mbox{#1.\,#2}}
+\newcommand*{\articleCodifie}[2]{\mbox{article~\refArticle{#1}{#2}}}
+\newcommand*{\articlesCodifies}[2]{\mbox{articles~\refArticle{#1}{#2}}}
+\newcommand*{\ArticleCodifie}[2]{\mbox{Article~\refArticle{#1}{#2}}}
+\newcommand*{\ArticlesCodifies}[2]{\mbox{Articles~\refArticle{#1}{#2}}}
+\newcommand*{\articlesCodifiesEtSuivants}[2]{\articlesCodifies{#1}{#2} et suivants}
+\newcommand*{\articleDu}[3][]{\ifthenelse{\equal{#1}{}}{\mbox{article~#2}}{\articleCodifie{#1}{#2}} du #3}
+\newcommand*{\articlesDu}[3][]{\ifthenelse{\equal{#1}{}}{\mbox{articles~#2}}{\articlesCodifies{#1}{#2}} du #3}
+\newcommand*{\articlesDuEtSuivants}[3][]{\ifthenelse{\equal{#1}{}}{\mbox{articles~#2}}{\articlesCodifies{#1}{#2}} et suivants du #3}
+\newcommand*{\ArticleDu}[3][]{\ifthenelse{\equal{#1}{}}{\mbox{Article~#2}}{\ArticleCodifie{#1}{#2}} du #3}
+\newcommand*{\ArticlesDu}[3][]{\ifthenelse{\equal{#1}{}}{\mbox{Articles~#2}}{\ArticlesCodifies{#1}{#2}} du #3}
+\newcommand*{\ArticlesDuEtSuivants}[3][]{\ifthenelse{\equal{#1}{}}{\mbox{Articles~#2}}{\ArticlesCodifies{#1}{#2}} et suivants du #3}
+
+\makeatletter
+\newcommand*{\ca}{\@ifstar{\mbox{C.~assur.}\xspace}{Code des assurances\xspace}}
+\newcommand*{\cch}{\@ifstar{CCH\xspace}{Code de la construction et de l'habitation\xspace}}
+\newcommand*{\cciv}{\@ifstar{\mbox{C.~civ.}\xspace}{Code civil\xspace}}
+\newcommand*{\ccom}{\@ifstar{\mbox{	C.~com.}\xspace}{Code du commerce\xspace}}
+\newcommand*{\ccons}{\@ifstar{\mbox{C.~consom.}\xspace}{Code de la consommation\xspace}}
+\newcommand*{\ccp}{\@ifstar{CCP\xspace}{Code de la commande publique\xspace}}
+\newcommand*{\cpc}{\@ifstar{CPC\xspace}{Code de procédure civile\xspace}}
+\newcommand*{\cpi}{\@ifstar{CPI\xspace}{Code de la propriété intellectuelle\xspace}}
+\newcommand*{\cu}{\@ifstar{\mbox{C.~urb.}\xspace}{Code de l'urbanisme\xspace}}
+\makeatother
 \newcommand*{\articleCodifie}[2]{article~#1.\,#2}
 \newcommand*{\articlesCodifies}[2]{articles~#1.\,#2}
-\newcommand*{\articlesCodifiesS}[2]{articles~#1.\,#2 et suivants}
-\newcommand*{\articleCU}[2]{\articlesCodifies{#1}{#2} du \CU\index{#1#2@#1.\,#2}}
-\newcommand*{\montant}[1]{\nombre{#1}~\euro}
-\newcommand*{\nom}[1]{\textsc{#1}}
-\newcommand*{\pourcent}[1]{\nombre{#1}~\%}
-\newcommand*{\prixSurface}[1]{\montant{#1}/m\up{2}}
-\newcommand*{\siecle}[1]{\textsc{#1}\ieme{}~siècle}
 
+% Conservé pour compatibilité avec première version
+\newcommand*{\articleCU}[2]{\articleDu[#1]{#2}{\cu}\index{#1#2@#1.\,#2}}
+\newcommand*{\articlesCodifiesS}[2]{articles~#1.\,#2 et suivants}
+
+% Commandes utiles souvent
 \newcommand*{\cad}{c'est-à-dire\xspace}
 \newcommand*{\commune}{collectivité locale\xspace}
 \newcommand*{\CM}{Conseil Municipal\xspace}
 \newcommand*{\CU}{Code de l'urbanisme\xspace}
 \newcommand*{\etc}{\emph{etc}.\xspace}
 \newcommand*{\metreCarre}{m\up{2}\xspace}
+\newcommand*{\montant}[1]{\nombre{#1}~\euro}
+\newcommand*{\nom}[1]{\textsc{#1}}
+\newcommand*{\pourcent}[1]{\nombre{#1}~\%}
+\newcommand*{\prixSurface}[1]{\montant{#1}/m\up{2}}
 \newcommand*{\PUP}{projet ubain partenarial\xspace}
 \newcommand*{\sdp}{surface de plancher\xspace}
+
+% Pour faciliter l'intégration denote de Magalie ou de Julie
+\newcommand*{\CAD}{\cad}
+
 
 \begin{document}
 
 	\maketitle
-	
+
 	\include{01_introduction}
 	\include{02_normesNationalesPlanificationLocale}
 	\include{03_amenagement}
@@ -59,7 +103,7 @@
 	\include{05_permisConstruire}
 	\include{06_lotissement}
 	\include{07_contentieux}
-		
+
 	\tableofcontents
-	
+
 \end{document}
