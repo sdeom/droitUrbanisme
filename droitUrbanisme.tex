@@ -1,6 +1,5 @@
 \documentclass[10pt,a4paper,twoside]{book}
 
-\usepackage{makeidx}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
@@ -8,8 +7,10 @@
 \usepackage{enumitem}
 \usepackage{xspace}
 \usepackage{moredefs}\usepackage[mla]{lips}
+\usepackage[autolanguage]{numprint}
+\usepackage{makeidx}
 % à passer en dernier
-\usepackage[french]{babel,varioref}
+\usepackage[french]{babel,varioref,isodate}
 \usepackage{hyperref}
 
 \author{Me Bernard \nom{Larmorlette}}
@@ -37,14 +38,21 @@
 \newcommand*{\civTrois}{\@ifstar{civ. 3\ieme{}\xspace}{troisième chambre civile\xspace}}
 \newcommand*{\CourDeCas}{\@ifstar{Cass.\xspace}{Cour de Cassation\xspace}}
 \newcommand*{\CA}{\@ifstar{CA\xspace}{Cour d'Appel\xspace}}
+\newcommand*{\CAA}{\@ifstar{CAA\xspace}{Cour Administrative d'Appel\xspace}}
 \newcommand*{\CE}{\@ifstar{CE\xspace}{Conseil d'État\xspace}}
 \makeatother
 
 \newcommand*{\jurisCourDeCas}[3][]{\CourDeCas* #2, \printdate{#3}\ifthenelse{\equal{#1}{}}{}{, \no#1}}% Numéro de chambre, date et en option no de pourvoi
+\newcommand*{\jurisCE}[2][]{\CE*, \printdate{#2}\ifthenelse{\equal{#1}{}}{}{, \no#1}}%Date et en option no de pourvoi
 \newcommand*{\jurisCA}[2]{\CA* #1, \printdate{#2}}%Ville, date
+\newcommand*{\jurisCAA}[3][]{\CAA* #2, \printdate{#3}\ifthenelse{\equal{#1}{}}{}{, \no#1}}%Ville, date, et en option no de pourvoi
 
 \newcommand*{\refArticle}[2]{\mbox{#1.\,#2}}
-\newcommand*{\articleCodifie}[2]{\mbox{article~\refArticle{#1}{#2}}}
+\makeatletter
+\newcommand*{\articleCodifie}{\@ifstar{\articleCodifieStared}{\articleCodifieNotStared}}
+\newcommand*{\articleCodifieStared}[2]{\mbox{art.~\refArticle{#1}{#2}}}
+\newcommand*{\articleCodifieNotStared}[2]{\mbox{article~\refArticle{#1}{#2}}}
+\makeatother
 \newcommand*{\articlesCodifies}[2]{\mbox{articles~\refArticle{#1}{#2}}}
 \newcommand*{\ArticleCodifie}[2]{\mbox{Article~\refArticle{#1}{#2}}}
 \newcommand*{\ArticlesCodifies}[2]{\mbox{Articles~\refArticle{#1}{#2}}}
@@ -56,6 +64,7 @@
 \newcommand*{\ArticlesDu}[3][]{\ifthenelse{\equal{#1}{}}{\mbox{Articles~#2}}{\ArticlesCodifies{#1}{#2}} du #3}
 \newcommand*{\ArticlesDuEtSuivants}[3][]{\ifthenelse{\equal{#1}{}}{\mbox{Articles~#2}}{\ArticlesCodifies{#1}{#2}} et suivants du #3}
 
+% Les codes et leur abbréviation (tiré de )
 \makeatletter
 \newcommand*{\ca}{\@ifstar{\mbox{C.~assur.}\xspace}{Code des assurances\xspace}}
 \newcommand*{\cch}{\@ifstar{CCH\xspace}{Code de la construction et de l'habitation\xspace}}
@@ -67,8 +76,6 @@
 \newcommand*{\cpi}{\@ifstar{CPI\xspace}{Code de la propriété intellectuelle\xspace}}
 \newcommand*{\cu}{\@ifstar{\mbox{C.~urb.}\xspace}{Code de l'urbanisme\xspace}}
 \makeatother
-\newcommand*{\articleCodifie}[2]{article~#1.\,#2}
-\newcommand*{\articlesCodifies}[2]{articles~#1.\,#2}
 
 % Conservé pour compatibilité avec première version
 \newcommand*{\articleCU}[2]{\articleDu[#1]{#2}{\cu}\index{#1#2@#1.\,#2}}
@@ -78,10 +85,10 @@
 \newcommand*{\cad}{c'est-à-dire\xspace}
 \newcommand*{\commune}{collectivité locale\xspace}
 \newcommand*{\CM}{Conseil Municipal\xspace}
-\newcommand*{\CU}{Code de l'urbanisme\xspace}
 \newcommand*{\etc}{\emph{etc}.\xspace}
 \newcommand*{\metreCarre}{m\up{2}\xspace}
 \newcommand*{\montant}[1]{\nombre{#1}~\euro}
+\newcommand*{\MO}{Maître d'Ouvrage\xspace}
 \newcommand*{\nom}[1]{\textsc{#1}}
 \newcommand*{\pourcent}[1]{\nombre{#1}~\%}
 \newcommand*{\prixSurface}[1]{\montant{#1}/m\up{2}}
